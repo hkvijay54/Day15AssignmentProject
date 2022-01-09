@@ -72,6 +72,44 @@ namespace Day15AssignmentProject
             {
                 Console.WriteLine($"{key,20} | {hash.GetValue(key),10}");
             }
+
+            //uc3
+
+            Console.WriteLine("After removing 'avoidable' word from phrase: \n");
+            string temp2 = "Paranoids are not paranoid because they are paranoid but because " +
+                "they keep putting themselves deliberately into paranoid avoidable situations";
+            string[] samplephrase2 = temp2.ToLower().Split(" ");
+
+            var phrase2 = samplephrase2.Distinct();
+
+            int length2 = 0;
+            foreach (var item in phrase) { length2++; }
+
+            MyMapNode<string, int> hash2 = new MyMapNode<string, int>(length2);
+
+            foreach (string word in samplephrase)
+            {
+                if (word == "avoidable")
+                {
+                    continue;
+                }
+                else if (hash2.ContainsKey(word))
+                {
+                    count = hash2.GetValue(word) + 1;
+                    hash2.Remove(word);
+                    hash2.Add(word, count);
+                }
+                else
+                {
+                    hash2.Add(word, 1);
+                }
+            }
+
+            Console.WriteLine($"{"Frequency",20} | {"Count",10}\n");
+            foreach (string key in phrase2)
+            {
+                Console.WriteLine($"{key,20} | {hash2.GetValue(key),10}");
+            }
         }
     }
 }
