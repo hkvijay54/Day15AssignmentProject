@@ -37,3 +37,41 @@ namespace Day15AssignmentProject
             Console.WriteLine("Frequency of word \'not\' is : " + hash1.GetFrequencyOfWords("not"));
 
             Console.WriteLine("\n*****End Of UC1 Program*****\n");
+
+            //uc2
+            string temp = "Paranoids are not paranoid because they are paranoid but because " +
+                "they keep putting themselves deliberately into paranoid avoidable situations";
+            string[] samplephrase = temp.ToLower().Split(" ");
+
+            var phrase = samplephrase.Distinct();
+
+            int length = 0;
+            foreach (var item in phrase) { length++; }
+
+            MyMapNode<string, int> hash = new MyMapNode<string, int>(length);
+
+
+            int count = 1;
+            foreach (string word in samplephrase)
+            {
+                if (hash.ContainsKey(word))
+                {
+                    count = hash.GetValue(word) + 1;
+                    hash.Remove(word);
+                    hash.Add(word, count);
+                }
+                else
+                {
+                    hash.Add(word, 1);
+                }
+            }
+
+
+            Console.WriteLine($"{"Frequency",20} | {"Count",10}\n");
+            foreach (string key in phrase)
+            {
+                Console.WriteLine($"{key,20} | {hash.GetValue(key),10}");
+            }
+        }
+    }
+}
